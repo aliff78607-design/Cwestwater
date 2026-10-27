@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff477e">
+  <title>A Mission for Annu ❤️</title>
+
+  <!--
+  ==================================================
+  EASY CUSTOMIZATION — CHANGE THESE VALUES FIRST
+  ==================================================
+  Her name: Annu
+  Your name: Ali
+  WhatsApp number: Set WHATSAPP_NUMBER in JavaScript.
+  Music: Replace MUSIC_URL with a song you have permission to use.
+  Messages: Edit the text inside the HTML or JavaScript.
+  Everything is in this one index.html file.
+  ==================================================
+  -->
+
+  <!-- Google Fonts (internet required; fallback fonts included) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #ff477e;
+      --deep-pink: #e91e63;
+      --light-pink: #ffe2ed;
+      --red: #ff3158;
+      --white: #ffffff;
+      --text: #6f2945;
+      --shadow: 0 18px 50px rgba(185, 39, 94, .16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #fff0f5, #ffd6e5, #fff5f8);
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #a91b53;
+      outline-offset: 4px;
+    }
+
+    .background-glow {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(65px);
+      opacity: .32;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glow-one {
+      background: #ff80ab;
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-two {
+      background: #ffb3c8;
+      bottom: -100px;
+      right: -100px;
+    }
+
+    #hearts {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      animation: floatUp linear forwards;
+      opacity: .65;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0); opacity: 0; }
+      15% { opacity: .65; }
+      100% { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      max-width: 850px;
+      margin: auto;
+      padding: 18px 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--deep-pink);
+      letter-spacing: -.5px;
+    }
+
+    .music-btn {
+      border: 1px solid #ffc1d5;
+      color: var(--deep-pink);
+      background: rgba(255,255,255,.75);
+      border-radius: 30px;
+      padding: 9px 13px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 28px, 580px);
+      margin: 24px auto 36px;
+    }
+
+    .progress-wrap {
+      margin-bottom: 15px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #a44b70;
+    }
+
+    .progress-track {
+      height: 7px;
+      background: rgba(255,255,255,.8);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #progress {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ff8eae, #ff3158);
+      transition: width .5s ease;
+    }
+
+    .card {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 28px;
+      padding: 30px 22px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      animation: appear .45s ease;
+      overflow: hidden;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(14px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: appear .45s ease;
+    }
+
+    .emoji-hero {
+      font-size: 66px;
+      line-height: 1.3;
+      margin: 5px 0 15px;
+    }
+
+    .script {
+      font-family: 'Dancing Script', cursive;
+      color: var(--deep-pink);
+      font-size: clamp(34px, 8vw, 47px);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(21px, 5vw, 27px);
+      line-height: 1.45;
+      margin-bottom: 13px;
+      color: #82284e;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #89556c;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #fff0f5;
+      color: #c12d62;
+      border: 1px solid #ffd3e1;
+      border-radius: 30px;
+      padding: 7px 13px;
+      margin-bottom: 15px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .primary-btn {
+      color: white;
+      background: linear-gradient(135deg, #ff6b9b, #ed245d);
+      box-shadow: 0 9px 22px rgba(237,36,93,.24);
+    }
+
+    .secondary-btn {
+      color: #c12d62;
+      background: #fff0f5;
+      border: 1px solid #ffd1e0;
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .full-btn {
+      width: 100%;
+      margin-top: 22px;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+      margin-top: 23px;
+      text-align: left;
+    }
+
+    .option {
+      width: 100%;
+      padding: 14px;
+      background: #fff8fb;
+      color: #7f3150;
+      border: 1px solid #ffd6e4;
+      border-radius: 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.6;
+      transition: background .2s, transform .2s, border .2s;
+    }
+
+    .option:hover {
+      background: #ffe7f0;
+      border-color: #ff8eb2;
+      transform: translateX(3px);
+    }
+
+    .option:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .reply {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      background: #fff0f5;
+      border: 1px dashed #ff9fbd;
+      border-radius: 17px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.8;
+      color: #c32460;
+    }
+
+    .reply.show {
+      display: block;
+      animation: appear .35s ease;
+    }
+
+    .small-note {
+      margin-top: 13px;
+      font-size: 11px;
+      color: #aa7188;
+    }
+
+    .typing {
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 12px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff1f6;
+      color: #b32159;
+      font-family: 'Dancing Script', cursive;
+      font-size: 25px;
+      line-height: 1.7;
+    }
+
+    .typing::after {
+      content: '|';
+      animation: blink .7s infinite;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .heart-beat {
+      font-size: 88px;
+      display: inline-block;
+      filter: drop-shadow(0 8px 15px rgba(238,36,93,.2));
+      animation: heartbeat 1.05s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.16); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.12); }
+      60% { transform: scale(1); }
+    }
+
+    .proposal-quote {
+      margin: 13px 0 22px;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .proposal-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      min-height: 95px;
+      padding: 12px 4px;
+      position: relative;
+    }
+
+    #yesBtn {
+      position: relative;
+      z-index: 2;
+      transform-origin: center;
+    }
+
+    #noBtn {
+      position: relative;
+      z-index: 3;
+      touch-action: manipulation;
+    }
+
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 25px;
+      color: #d42b66;
+      margin-top: 15px;
+    }
+
+    #fireworks {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .celebration-card {
+      position: relative;
+      z-index: 11;
+    }
+
+    .celebration-heart {
+      font-size: 70px;
+      animation: heartbeat .9s infinite;
+      margin: 6px 0 15px;
+    }
+
+    .share-btn {
+      margin-top: 18px;
+      color: white;
+      background: #159b55;
+      box-shadow: 0 8px 22px rgba(21,155,85,.2);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #a46b83;
+      margin-top: 18px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (min-width: 520px) {
+      main {
+        margin-top: 35px;
+      }
+
+      .card {
+        padding: 38px 35px;
+      }
+
+      .options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+  <div id="hearts" aria-hidden="true"></div>
+  <canvas id="fireworks"></canvas>
+
+  <header class="topbar">
+    <div class="brand">♡ A Mission for Annu</div>
+    <button class="music-btn" id="musicToggle" type="button">
+      🎵 Music: Off
+    </button>
+  </header>
+
+  <main>
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-label">
+        <span id="progressText">MISSION READY</span>
+        <span id="stepCount">0 / 5</span>
+      </div>
+      <div class="progress-track">
+        <div id="progress"></div>
+      </div>
+    </div>
+
+    <section class="card">
+
+      <!-- STEP 1: WELCOME -->
+      <div class="step active" id="step1">
+        <div class="emoji-hero">💌</div>
+        <span class="tag">Secret mission unlocked</span>
+        <h1 class="script">Hey Annu!</h1>
+        <h2>Ek important mission hai tumhare liye...</h2>
+        <p>
+          Is mission mein thodi hasi, thoda logic aur bahut saari feelings hain.
+          <br>Ready ho, Miss Special? 😌
+        </p>
+        <button class="primary-btn full-btn" onclick="goToStep(2)">
+          Mission Start Karo ❤️
+        </button>
+        <p class="small-note">Warning: Iss mission mein dil pighal sakta hai! 🫠</p>
+      </div>
+
+      <!-- STEP 2: FUNNY ROUND -->
+      <div class="step" id="step2">
+        <span class="tag">Round 1 · Maja + Hasi</span>
+        <div class="emoji-hero">🍫😜</div>
+        <h2>Agar main tumhe roz chocolate du, tum badle mein kya dogi?</h2>
+
+        <div class="options">
+          <button class="option" onclick="funnyAnswer(this)">A) Ek smile 😊</button>
+          <button class="option" onclick="funnyAnswer(this)">B) Ek kiss 😘</button>
+          <button class="option" onclick="funnyAnswer(this)">C) Poora dil ❤️</button>
+          <button class="option" onclick="funnyAnswer(this)">D) Sab kuch + ek thappad 😜</button>
+        </div>
+
+        <div class="reply" id="funnyReply" aria-live="polite">
+          Galat! Sahi jawab toh tum ho! 😂❤️
+          <br>Chocolate toh bahana hai, tum meri favourite ho!
+        </div>
+
+        <button class="primary-btn full-btn hidden" id="funnyNext" onclick="goToStep(3)">
+          Next Round Chalo ➜
+        </button>
+      </div>
+
+      <!-- STEP 3: LOGICAL ROUND -->
+      <div class="step" id="step3">
+        <span class="tag">Round 2 · Logic Challenge</span>
+        <div class="emoji-hero">🧠💘</div>
+        <h2>Logic suno, Miss Genius!</h2>
+        <p>
+          Duniya mein billions of log hain, par mera dil sirf ek par atka hai.
+          Batao, woh kaun hai?
+        </p>
+
+        <div class="options">
+          <button class="option" onclick="logicAnswer(this)">A) Tum ❤️</button>
+          <button class="option" onclick="logicAnswer(this)">B) Sirf Tum 💗</button>
+          <button class="option" onclick="logicAnswer(this)">C) Hamesha Tum 💞</button>
+          <button class="option" onclick="logicAnswer(this)">D) All of the above 🥰</button>
+        </div>
+
+        <div class="reply" id="logicReply" aria-live="polite">
+          🎉 Correct! Tum kitni smart ho!
+          <br>Waise mere dil ka answer key sirf tumhare paas hai. ❤️
+        </div>
+
+        <button class="primary-btn full-btn hidden" id="logicNext" onclick="goToStep(4)">
+          Dil Ki Baat Suno 💌
+        </button>
+      </div>
+
+      <!-- STEP 4: EMOTIONAL ROUND -->
+      <div class="step" id="step4">
+        <span class="tag">Round 3 · Dil Se</span>
+        <div class="emoji-hero">🥹❤️</div>
+        <h2>Ab ek serious sawaal, Annu...</h2>
+        <p>Agar main hamesha tumhare saath rahun, tumhe kaisa lagega?</p>
+
+        <div class="options">
+          <button class="option" onclick="emotionalAnswer(this)">A) Sabse khushi 🥹</button>
+          <button class="option" onclick="emotionalAnswer(this)">B) Thoda dar lagega 🙈</button>
+          <button class="option" onclick="emotionalAnswer(this)">C) Sapna poora ho jayega ✨</button>
+          <button class="option" onclick="emotionalAnswer(this)">D) Khushi se rona aa jayega 🥺</button>
+        </div>
+
+        <div class="reply" id="emotionalReply" aria-live="polite">
+          <div class="typing" id="typingText"></div>
+        </div>
+
+        <button class="primary-btn full-btn hidden" id="emotionalNext" onclick="goToStep(5)">
+          Last Mission Unlock Karo 💖
+        </button>
+        <p class="small-note">Honest answer allowed. No wrong answers here. 🤍</p>
+      </div>
+
+      <!-- STEP 5: PROPOSAL -->
+      <div class="step" id="step5">
+        <span class="tag">Final round · One question</span>
+        <div class="heart-beat">❤️</div>
+        <h1 class="script">Annu...</h1>
+        <h2>Will You Be Mine?</h2>
+        <p class="proposal-quote">
+          I love you more than yesterday, but less than tomorrow. 💗
+          <br>
+          <strong>— Ali</strong>
+        </p>
+        <p>Ek sawaal hai jo bahut time se poochna chahta tha... 🥹</p>
+
+        <div class="proposal-buttons" id="proposalArea">
+          <button class="primary-btn" id="yesBtn" onclick="sayYes()">
+            YES ❤️
+          </button>
+          <button class="secondary-btn" id="noBtn" type="button">
+            NO 🙈
+          </button>
+        </div>
+
+        <p class="small-note">
+          P.S. Choose what you truly feel. Your answer matters. 💌
+        </p>
+      </div>
+
+      <!-- CELEBRATION -->
+      <div class="step" id="celebration">
+        <div class="celebration-card">
+          <span class="tag">Mission status · Beautiful moment</span>
+          <div class="celebration-heart">💖</div>
+          <h1 class="script">She Said YES!</h1>
+          <h2>I knew you'd make this moment special! 🥹</h2>
+          <p>
+            Annu, thank you for making me smile.
+            <br>
+            May we fill our story with laughter, trust, respect,
+            and countless beautiful memories.
+          </p>
+          <div class="signature">I Love You, Annu ❤️</div>
+          <p>Forever cheering for you,</p>
+          <div class="signature">— From Ali 💌</div>
+
+          <button class="primary-btn share-btn full-btn" onclick="shareAnswer()">
+            💚 Apna jawab mujhe bhejo
+          </button>
+          <button class="secondary-btn full-btn" onclick="restartMission()">
+            ↻ Play Our Story Again
+          </button>
+          <p class="small-note">
+            A little website, a big feeling. ❤️
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="footer">Made with ❤️ by Ali · A tiny story for Annu</div>
+  </main>
+
+  <!--
+    MUSIC NOTE:
+    Replace the demo URL below with a direct MP3 URL for music
+    you own or are licensed to use. Browsers may require a tap
+    before audio can start. Music is optional.
+  -->
+  <audio id="bgMusic" loop preload="none"
+    src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+  </audio>
+
+  <script>
+    // =============================================
+    // CUSTOMIZE YOUR WEBSITE HERE
+    // =============================================
+    const HER_NAME = "Annu";
+    const YOUR_NAME = "Ali";
+
+    // Use digits only, including country code, without "+".
+    // Example format for India: 91XXXXXXXXXX
+    // Leave empty to open WhatsApp's contact chooser.
+    const WHATSAPP_NUMBER = "";
+
+    // Replace with your own licensed/royalty-free direct MP3 URL.
+    const MUSIC_URL =
+      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+    // =============================================
+    // BASIC SETUP
+    // =============================================
+    const $ = (id) => document.getElementById(id);
+
+    const bgMusic = $("bgMusic");
+    const musicToggle = $("musicToggle");
+    const progress = $("progress");
+    const progressText = $("progressText");
+    const stepCount = $("stepCount");
+
+    let currentStep = 1;
+    let musicOn = false;
+    let typingTimer = null;
+    let yesScale = 1;
+    let fireworksAnimation = null;
+    let fireworksRunning = false;
+    let selectedEmotionalAnswer = "";
+
+    // Set names in key headings.
+    $("step1").querySelector(".script").textContent = "Hey " + HER_NAME + "!";
+    $("step5").querySelector(".script").textContent = HER_NAME + "...";
+
+    const proposalText = $("step5").querySelector(".proposal-quote");
+    proposalText.innerHTML =
+      "I love you more than yesterday, but less than tomorrow. 💗" +
+      "<br><strong>— " + YOUR_NAME + "</strong>";
+
+    // =============================================
+    // FLOATING HEARTS
+    // =============================================
+    const heartContainer = $("hearts");
+    const heartSymbols = ["❤️", "💕", "💗", "💖", "💘", "♡"];
+
+    function createFloatingHeart() {
+      const heart = document.createElement("span");
+      heart.className = "floating-heart";
+      heart.textContent =
+        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = (12 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (7 + Math.random() * 7) + "s";
+
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 15000);
+    }
+
+    for (let i = 0; i < 12; i++) {
+      setTimeout(createFloatingHeart, i * 250);
+    }
+    setInterval(createFloatingHeart, 650);
+
+    // =============================================
+    // SCREEN NAVIGATION
+    // =============================================
+    function goToStep(number) {
+      clearInterval(typingTimer);
+
+      document.querySelectorAll(".step").forEach((el) => {
+        el.classList.remove("active");
+      });
+
+      $("step" + number).classList.add("active");
+      currentStep = number;
+
+      progress.style.width = (number / 5 * 100) + "%";
+      stepCount.textContent = number + " / 5";
+
+      const labels = {
+        2: "FUNNY ROUND",
+        3: "LOGIC ROUND",
+        4: "EMOTIONAL ROUND",
+        5: "THE BIG QUESTION"
+      };
+
+      progressText.textContent = labels[number] || "MISSION READY";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =============================================
+    // FUNNY ROUND
+    // =============================================
+    function funnyAnswer(button) {
+      if (button.parentElement.dataset.answered === "true") return;
+
+      button.parentElement.dataset.answered = "true";
+      button.parentElement.querySelectorAll("button").forEach((b) => {
+        b.disabled = true;
+      });
+
+      $("funnyReply").classList.add("show");
+      $("funnyNext").classList.remove("hidden");
+    }
+
+    // =============================================
+    // CONFETTI / LOGIC ROUND
+    // =============================================
+    function logicAnswer(button) {
+      if (button.parentElement.dataset.answered === "true") return;
+
+      button.parentElement.dataset.answered = "true";
+      button.parentElement.querySelectorAll("button").forEach((b) => {
+        b.disabled = true;
+      });
+
+      $("logicReply").classList.add("show");
+      $("logicNext").classList.remove("hidden");
+      burstConfetti();
+    }
+
+    function burstConfetti() {
+      const symbols = ["💖", "💕", "✨", "💗", "🎉", "❤️"];
+
+      for (let i = 0; i < 32; i++) {
+        const item = document.createElement("span");
+        item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+        Object.assign(item.style, {
+          position: "fixed",
+          left: Math.random() * 100 + "vw",
+          top: "-35px",
+          fontSize: (16 + Math.random() * 17) + "px",
+          zIndex: 20,
+          pointerEvents: "none",
+          transition: "transform 2.2s ease-in, opacity 2.2s ease"
+        });
+
+        document.body.appendChild(item);
+
+        requestAnimationFrame(() => {
+          item.style.transform =
+            `translate(${Math.random() * 100 - 50}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 500}deg)`;
+          item.style.opacity = "0";
+        });
+
+        setTimeout(() => item.remove(), 2400);
+      }
+    }
+
+    // =============================================
+    // EMOTIONAL ROUND / TYPING ANIMATION
+    // =============================================
+    function emotionalAnswer(button) {
+      if (button.parentElement.dataset.answered === "true") return;
+
+      button.parentElement.dataset.answered = "true";
+      selectedEmotionalAnswer = button.textContent;
+
+      button.parentElement.querySelectorAll("button").forEach((b) => {
+        b.disabled = true;
+      });
+
+      const reply = $("emotionalReply");
+      const typingText = $("typingText");
+      reply.classList.add("show");
+
+      const promise =
+        "Main wada karta hoon, chahe hasi ho ya aansu, main hamesha tumhari izzat karunga, tumhari baat sununga aur tumhara saath dene ki poori koshish karunga. ❤️";
+
+      let index = 0;
+      typingText.textContent = "";
+
+      typingTimer = setInterval(() => {
+        typingText.textContent += promise.charAt(index);
+        index++;
+
+        if (index >= promise.length) {
+          clearInterval(typingTimer);
+          $("emotionalNext").classList.remove("hidden");
+        }
+      }, 35);
+    }
+
+    // =============================================
+    // THE RUNAWAY NO BUTTON
+    // =============================================
+    const noBtn = $("noBtn");
+    const yesBtn = $("yesBtn");
+    const proposalArea = $("proposalArea");
+
+    function moveNoButton() {
+      const areaRect = proposalArea.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // Keep the button inside the proposal area where possible.
+      noBtn.style.position = "absolute";
+
+      const maxX = Math.max(0, areaRect.width - btnRect.width);
+      const maxY = Math.max(0, areaRect.height - btnRect.height);
+
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+
+      yesScale = Math.min(yesScale + 0.12, 1.65);
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+
+    // Pointer events cover most mobile touch interactions.
+    noBtn.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    // =============================================
+    // YES / CELEBRATION
+    // =============================================
+    function sayYes() {
+      clearInterval(typingTimer);
+
+      document.querySelectorAll(".step").forEach((el) => {
+        el.classList.remove("active");
+      });
+
+      $("celebration").classList.add("active");
+      $("progressWrap").classList.add("hidden");
+
+      burstConfetti();
+      burstConfetti();
+      startFireworks();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =============================================
+    // FIREWORKS: CANVAS + VANILLA JAVASCRIPT
+    // =============================================
+    const canvas = $("fireworks");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    let lastFirework = 0;
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function explode(x, y) {
+      const colors = ["#ff477e", "#ffcf70", "#ffffff", "#ff8db5", "#ff3158"];
+
+      for (let i = 0; i < 55; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.1 + Math.random() * 4;
+
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 65 + Math.random() * 30,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 1.5 + Math.random() * 2.5
+        });
+      }
+    }
+
+    function drawFireworks(timestamp) {
+      if (!fireworksRunning) return;
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      if (timestamp - lastFirework > 420) {
+        explode(
+          40 + Math.random() * Math.max(1, window.innerWidth - 80),
+          50 + Math.random() * Math.max(1, window.innerHeight * .58)
+        );
+        lastFirework = timestamp;
+      }
+
+      particles = particles.filter((p) => p.life > 0);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += .035;
+        p.vx *= .99;
+        p.life--;
+
+        ctx.globalAlpha = Math.min(1, p.life / 28);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.globalAlpha = 1;
+      fireworksAnimation = requestAnimationFrame(drawFireworks);
+    }
+
+    function startFireworks() {
+      if (fireworksRunning) return;
+      fireworksRunning = true;
+      lastFirework = 0;
+      fireworksAnimation = requestAnimationFrame(drawFireworks);
+    }
+
+    function stopFireworks() {
+      fireworksRunning = false;
+
+      if (fireworksAnimation) {
+        cancelAnimationFrame(fireworksAnimation);
+      }
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      particles = [];
+    }
+
+    // =============================================
+    // MUSIC TOGGLE
+    // =============================================
+    bgMusic.src = MUSIC_URL;
+    bgMusic.volume = 0.22;
+
+    musicToggle.addEventListener("click", async () => {
+      if (!musicOn) {
+        try {
+          await bgMusic.play();
+          musicOn = true;
+          musicToggle.textContent = "🎵 Music: On";
+        } catch (error) {
+          musicToggle.textContent = "⚠️ Tap to retry";
+        }
+      } else {
+        bgMusic.pause();
+        musicOn = false;
+        musicToggle.textContent = "🎵 Music: Off";
+      }
+    });
+
+    // =============================================
+    // WHATSAPP SHARE
+    // =============================================
+    function shareAnswer() {
+      const message =
+        "I Said YES! ❤️🥹\n" +
+        "Ali, your proposal made my day!\n" +
+        "Love, " + HER_NAME + " 💖";
+
+      const encodedMessage = encodeURIComponent(message);
+      const phone = WHATSAPP_NUMBER.replace(/\D/g, "");
+
+      const url = phone
+        ? `https://wa.me/${phone}?text=${encodedMessage}`
+        : `https://wa.me/?text=${encodedMessage}`;
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    // =============================================
+    // RESTART
+    // =============================================
+    function restartMission() {
+      clearInterval(typingTimer);
+      stopFireworks();
+
+      document.querySelectorAll(".step").forEach((el) => {
+        el.classList.remove("active");
+      });
+
+      $("step1").classList.add("active");
+      $("progressWrap").classList.remove("hidden");
+
+      currentStep = 1;
+      progress.style.width = "0%";
+      progressText.textContent = "MISSION READY";
+      stepCount.textContent = "0 / 5";
+
+      ["funnyReply", "logicReply", "emotionalReply"].forEach((id) => {
+        $(id).classList.remove("show");
+      });
+
+      ["funnyNext", "logicNext", "emotionalNext"].forEach((id) => {
+        $(id).classList.add("hidden");
+      });
+
+      ["step2", "step3", "step4"].forEach((id) => {
+        const options = $(id).querySelector(".options");
+        delete options.dataset.answered;
+
+        options.querySelectorAll("button").forEach((button) => {
+          button.disabled = false;
+        });
+      });
+
+      $("typingText").textContent = "";
+      selectedEmotionalAnswer = "";
+      yesScale = 1;
+      yesBtn.style.transform = "scale(1)";
+      noBtn.style.position = "relative";
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
